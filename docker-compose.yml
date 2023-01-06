@@ -1,0 +1,18 @@
+version: "3.3"
+services:
+  nginx:
+    image: nginx:latest
+    restart: always
+    volumes:
+      - ./out/:/usr/share/nginx/html
+    environment:
+      VIRTUAL_HOST: fediverse.quebec
+      LETSENCRYPT_HOST: fediverse.quebec
+      LETSENCRYPT_EMAIL: yann@rocq.net 
+    networks:
+      - internal
+      - infra_default
+networks:
+  internal:
+  infra_default:
+    external: true
