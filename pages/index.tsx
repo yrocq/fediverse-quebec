@@ -1,8 +1,14 @@
+import { AppProps } from 'next/app';
 import Head from 'next/head'
 import {Client} from "pg"
 import punycode from 'punycode/';
 import config from "../config"
-export default function Home({instances}) {
+
+interface Props {
+  instances: string[];
+}
+
+export default function Home({instances}: any): JSX.Element {
   return (
     <>
       <Head>
@@ -25,7 +31,7 @@ export default function Home({instances}) {
         <div className="columns is-multiline is-vcentered">
         {
           instances.map(
-            (instance) => <div className="column is-half" key={instance.domain_name}><div className='card' >
+            (instance: any) => <div className="column is-half" key={instance.domain_name}><div className='card' >
               <div className="card-content">
                   <div className='content'>
                   <h2 className='title is-4'>{instance.title}</h2>
@@ -58,33 +64,28 @@ export default function Home({instances}) {
                   </div>
                   <div className="card-footer">
                     <div className="card-footer-item">
-                    <a href={`https://${instance.domain_name}`}>Visiter l'instance</a>
+                    <a href={`https://${instance.domain_name}`}>Visiter l&apos;instance</a>
                     </div>
                   </div>
             </div></div>
           )
         } 
         </div>
-        <div className='block'><strong>Algorithme:</strong> Retourne toutes les instances Mastodon connues dont le nom de domaine ou la description contient le mot <em>"Québec"</em>.
-        Tolérance pour l'absence d'accents, les variantes de minuscules/majuscules, et les mots dérivés, tels que <em>"Québécoise"</em> ou <em>"Québécois"</em>. Modération manuelle des nouvelles entrées, afin de filtrer les spammeurs et les sites haineux.</div>
+        <div className='block'><strong>Algorithme:</strong> Retourne toutes les instances Mastodon connues dont le nom de domaine ou la description contient le mot <em>&quot;Québec&quot;</em>.
+        Tolérance pour l&apos;absence d&apos;accents, les variantes de minuscules/majuscules, et les mots dérivés, tels que <em>&quot;Québécoise&quot;</em> ou <em>&quot;Québécois&quot;</em>. Modération manuelle des nouvelles entrées, afin de filtrer les spammeurs et les sites haineux.</div>
       </section>
     </>
   )
 }
 
 export async function getStaticProps() {
-  const client = new Client({
-    host: "localhost",
-    user: "yrocq",
-    port: 5432,
-    database: "pteranodon"
-  })
+  const client = new Client(process.env.DATABASE_URL);
 
   await client.connect()
   const query = `SELECT title, domain_name, short_description, description, user_count, status_count, registrations FROM instances WHERE domain_name like '%quebec%' OR title LIKE '%Qu_b_c%' OR short_description LIKE '%Qu_b_c%' OR description LIKE '%Qu_bec%' OR title LIKE '%Montr_eal%' OR short_description LIKE '%Montr_eal%' OR description LIKE '%Montr_eal%'  ORDER BY user_count DESC;`
   const result = await client.query(query);
-  const instances = result.rows;
+  const instances = result.rows as string[];
   return {
-    props: { instances },
+    props: { instances } as Props
   }
 }
