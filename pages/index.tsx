@@ -3,7 +3,7 @@ import Head from 'next/head'
 import {Client} from "pg"
 import punycode from 'punycode/';
 import config from "../config"
-
+import {format} from "date-fns";
 interface Props {
   instances: string[];
 }
@@ -64,6 +64,9 @@ export default function Home({instances}: any): JSX.Element {
                   </div>
                   <div className="card-footer">
                     <div className="card-footer-item">
+                    MAJ: {instance.updated_at}
+                    </div>
+                    <div className="card-footer-item">
                     <a href={`https://${instance.domain_name}`}>Visiter l&apos;instance</a>
                     </div>
                   </div>
@@ -82,9 +85,18 @@ export async function getStaticProps() {
   const client = new Client(process.env.DATABASE_URL);
 
   await client.connect()
-  const query = `SELECT title, domain_name, short_description, description, user_count, status_count, registrations FROM instances WHERE domain_name like '%quebec%' OR title LIKE '%Qu_b_c%' OR short_description LIKE '%Qu_b_c%' OR description LIKE '%Qu_bec%' OR title LIKE '%Montr_eal%' OR short_description LIKE '%Montr_eal%' OR description LIKE '%Montr_eal%'  ORDER BY user_count DESC;`
+  const query = `SELECT
+    title, domain_name, short_description, description, user_count, status_count, registrations, updated_at
+    FROM instances WHERE domain_name like '%quebec%' OR title LIKE '%Qu_b_c%' OR short_description LIKE '%Qu_b_c%' OR description LIKE '%Qu_bec%' OR title LIKE '%Montr_eal%' OR short_description LIKE '%Montr_eal%' OR description LIKE '%Montr_eal%'  ORDER BY user_count DESC;`
   const result = await client.query(query);
-  const instances = result.rows as string[];
+  const instances = result.rows.map(
+    (row) => {
+      const sqlDate = row.updated_at as Date;
+      return {
+        ...row, ...{updated_at: format(row.updated_at, `dd/MM/yyyy HH'h'mm`)}
+      }
+    }
+  );
   return {
     props: { instances } as Props
   }
