@@ -11,6 +11,7 @@ export default function Home({instances}: any): JSX.Element {
     <Main>
       <>
         <section className="section">
+          <div className="container">
           <article className="message">
             <div className="message-header">
               À propos
@@ -20,13 +21,14 @@ export default function Home({instances}: any): JSX.Element {
               <p>Ce site a pour vocation de promouvoir le Fédiverse, une approche décentralisée des réseaux sociaux, dont le plus célèbre représentant est <a href="https://joinmastodon.org/fr">Mastodon</a>.</p>
             <p>Vous trouverez ci-dessous des instances de cette application, destinées au public québécois. J&apos;ajouterai d&apos;autres informations au fil du temps.</p>
             <p>Idées, commentaires, et questions bienvenus</p></div>
+            <p><strong>Me contacter</strong></p>
             <ul className="list">
               <li className="list-item"><a href="https://mastodonte.quebec/@yann">Mon profil Mastodon</a></li>
               <li className="list-item"><a href="https://form.jotform.com/230093323011236">Formulaire</a></li>
             </ul>
-
             </div>
           </article>
+          </div>
         </section>
       <section className="section">
         <h1 className="title">Mastodon</h1>
