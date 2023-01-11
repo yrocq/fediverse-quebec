@@ -1,83 +1,102 @@
-import { AppProps } from 'next/app';
-import Head from 'next/head'
 import {Client} from "pg"
 import punycode from 'punycode/';
-import config from "../config"
 import {format} from "date-fns";
+import Main from "../layouts/main";
 interface Props {
   instances: string[];
 }
 
 export default function Home({instances}: any): JSX.Element {
   return (
-    <>
-      <Head>
-        <title>{config.site.title}</title>
-        <meta name="description" content={config.site.tag_line} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <div className="hero has-background-link-dark">
-        <div className="hero-body">
-          <div className='title is-2 has-text-white'>{config.site.title}</div>
-          <div className='subtitle has-text-white'>{config.site.tag_line}</div>
+    <Main>
+      <>
+        <section className="section">
+          <article className="message">
+            <div className="message-header">
+              À propos
+            </div>
+            <div className="message-body">
+              <div className="block">
+              <p>Ce site a pour vocation de promouvoir le Fédiverse, une approche décentralisée des réseaux sociaux, dont le plus célèbre représentant est <a href="https://joinmastodon.org/fr">Mastodon</a>.</p>
+            <p>Vous trouverez ci-dessous des instances de cette application, destinées au public québécois. J&apos;ajouterai d&apos;autres informations au fil du temps.</p>
+            <p>Idées, commentaires, et questions bienvenus</p></div>
+            <ul className="list">
+              <li className="list-item"><a href="https://mastodonte.quebec/@yann">Mon profil Mastodon</a></li>
+              <li className="list-item"><a href="https://form.jotform.com/230093323011236">Formulaire</a></li>
+            </ul>
+
+            </div>
+          </article>
+        </section>
+      <section className="section">
+        <h1 className="title">Mastodon</h1>
+        <div className="block">
+          <strong>{instances.length} instances répertoriées</strong>
         </div>
-      </div>
-
-      <section className='section'>
-
-        <h1 className='title'>Mastodon</h1>
-        <div className='block'><strong>{instances.length} instances répertoriées</strong></div>
         <div className="columns is-multiline is-vcentered">
-        {
-          instances.map(
-            (instance: any) => <div className="column is-half" key={instance.domain_name}><div className='card' >
-              <div className="card-content">
-                  <div className='content'>
-                  <h2 className='title is-4'>{instance.title}</h2>
-                  <h3 className='subtitle is-6'><a href={`https://${instance.domain_name}`}>{punycode.toUnicode(instance.domain_name)}</a></h3>
-                    <p className='three-lines'>{instance.short_description}</p>
+          {instances.map((instance: any) => (
+            <div className="column is-half" key={instance.domain_name}>
+              <div className="card">
+                <div className="card-content">
+                  <div className="content">
+                    <h2 className="title is-4">{instance.title}</h2>
+                    <h3 className="subtitle is-6">
+                      <a href={`https://${instance.domain_name}`}>
+                        {punycode.toUnicode(instance.domain_name)}
+                      </a>
+                    </h3>
+                    <p className="three-lines">{instance.short_description}</p>
                   </div>
-                  <div>
-                    
-                  </div>
-                  <div className='level'>
-                  <div className="level-item has-text-centered">
-                    <div>
-                    <p className="heading">Utilisateurs</p>
-      <p className="title is-4">{instance.user_count}</p>
+                  <div></div>
+                  <div className="level">
+                    <div className="level-item has-text-centered">
+                      <div>
+                        <p className="heading">Utilisateurs</p>
+                        <p className="title is-4">{instance.user_count}</p>
+                      </div>
+                    </div>
+                    <div className="level-item has-text-centered">
+                      <div>
+                        <p className="heading">Status</p>
+                        <p className="title is-4">{instance.status_count}</p>
+                      </div>
+                    </div>
+                    <div className="level-item has-text-centered">
+                      <div>
+                        <p className="heading">Inscriptions</p>
+                        <p className="title is-4">
+                          {instance.registrations ? "Ouvertes" : "Fermées"}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                  <div className="level-item has-text-centered">
-                    <div>
-                    <p className="heading">Status</p>
-      <p className="title is-4">{instance.status_count}</p>
-                    </div>
-                  </div>
-                  <div className="level-item has-text-centered">
-                    <div>
-                    <p className="heading">Inscriptions</p>
-      <p className="title is-4">{instance.registrations?'Ouvertes':"Fermées"}</p>
-                    </div>
-                  </div>                    
-                  </div>
-                  </div>
-                  <div className="card-footer">
-                    <div className="card-footer-item">
+                </div>
+                <div className="card-footer">
+                  <div className="card-footer-item">
                     MAJ: {instance.updated_at}
-                    </div>
-                    <div className="card-footer-item">
-                    <a href={`https://${instance.domain_name}`}>Visiter l&apos;instance</a>
-                    </div>
                   </div>
-            </div></div>
-          )
-        } 
+                  <div className="card-footer-item">
+                    <a href={`https://${instance.domain_name}`}>
+                      Visiter l&apos;instance
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-        <div className='block'><strong>Algorithme:</strong> Retourne toutes les instances Mastodon connues dont le nom de domaine ou la description contient le mot <em>&quot;Québec&quot;</em>.
-        Tolérance pour l&apos;absence d&apos;accents, les variantes de minuscules/majuscules, et les mots dérivés, tels que <em>&quot;Québécoise&quot;</em> ou <em>&quot;Québécois&quot;</em>. Modération manuelle des nouvelles entrées, afin de filtrer les spammeurs et les sites haineux.</div>
+        <div className="block">
+          <strong>Algorithme:</strong> Retourne toutes les instances Mastodon
+          connues dont le nom de domaine ou la description contient le mot{" "}
+          <em>&quot;Québec&quot;</em>. Tolérance pour l&apos;absence
+          d&apos;accents, les variantes de minuscules/majuscules, et les mots
+          dérivés, tels que <em>&quot;Québécoise&quot;</em> ou{" "}
+          <em>&quot;Québécois&quot;</em>. Modération manuelle des nouvelles
+          entrées, afin de filtrer les spammeurs et les sites haineux.
+        </div>
       </section>
-    </>
+      </>
+    </Main>
   )
 }
 
@@ -91,7 +110,6 @@ export async function getStaticProps() {
   const result = await client.query(query);
   const instances = result.rows.map(
     (row) => {
-      const sqlDate = row.updated_at as Date;
       return {
         ...row, ...{updated_at: format(row.updated_at, `dd/MM/yyyy HH'h'mm`)}
       }
