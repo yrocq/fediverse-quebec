@@ -59,7 +59,7 @@ export default function Home({instances}: any): JSX.Element {
                     </div>
                     <div className="level-item has-text-centered">
                       <div>
-                        <p className="heading">Status</p>
+                        <p className="heading">Statut</p>
                         <p className="title is-4">{instance.status_count}</p>
                       </div>
                     </div>
