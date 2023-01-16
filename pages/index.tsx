@@ -23,7 +23,7 @@ export default function Home({instances}: any): JSX.Element {
             <p>Idées, commentaires, et questions bienvenus</p></div>
             <p><strong>Me contacter</strong></p>
             <ul className="list">
-              <li className="list-item"><a href="https://mastodonte.quebec/@yann">Mon profil Mastodon</a></li>
+              <li className="list-item"><a href="https://mastodonte.quebec/@yann" rel="me">Mon profil Mastodon</a></li>
               <li className="list-item"><a href="https://form.jotform.com/230093323011236">Formulaire</a></li>
             </ul>
             </div>
