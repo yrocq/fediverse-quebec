@@ -58,7 +58,7 @@ export default function InstancePage({instance}:Props)  {
         </div>
         <div className="block">
           <div className="field">
-            <div className="label">Nombe de status</div>
+            <div className="label">Nombe de statuts</div>
             <div>{instance.status_count}</div>
           </div>
         </div>
