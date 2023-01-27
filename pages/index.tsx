@@ -25,7 +25,7 @@ export default function Home({instances}: any): JSX.Element {
               <div className="card">
                 <div className="card-content">
                   <div className="content">
-                    <h2 className="title is-4" ><Link className=' has-text-black' href={'instances/' + instance.domain_name}>{instance.title}</Link></h2>
+                    <h2 className="title is-4" ><Link className=' has-text-black' href={'instances/' + instance.domain_name + '.html'}>{instance.title}</Link></h2>
                     <h3 className="subtitle is-6">
                       <DomainLink domain={instance.domain_name}></DomainLink>
                     </h3>
@@ -65,7 +65,7 @@ export default function Home({instances}: any): JSX.Element {
                     </a>
                   </div>
                   <div className="card-footer-item">
-                    <Link href={'instances/' + instance.domain_name}>Infos</Link>
+                    <Link href={'instances/' + instance.domain_name + '.html'}>Infos</Link>
                   </div>
                 </div>
               </div>
