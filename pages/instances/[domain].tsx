@@ -3,6 +3,7 @@ import Client from "../../src/client"
 import { Instance } from "../../src/models/instance";
 
 import sanitizeHtml from 'sanitize-html';
+import DomainLink from "../../src/components/domain-link";
 
 interface Props {
   instance: Instance
@@ -22,7 +23,7 @@ export default function InstancePage({instance}:Props)  {
         </div>
         <div className="columns">
             <div className="column is-half">
-            {instance.domain_name}
+            <DomainLink domain={instance.domain_name} />
             </div>
           </div>
         <div>
