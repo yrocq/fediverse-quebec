@@ -1,37 +1,21 @@
-import {Client} from "pg"
 import punycode from 'punycode/';
-import {format} from "date-fns";
 import Main from "../layouts/main";
+import Link from "next/link";
+import Client from '../src/client';
+import { Instance } from '../src/models/instance';
+import TitleWithIcon from '../src/components/title-with-icon';
+import DomainLink from '../src/components/domain-link';
+
 interface Props {
-  instances: string[];
+  instances: Instance[];
 }
 
 export default function Home({instances}: any): JSX.Element {
   return (
     <Main>
       <>
-        <section className="section">
-          <div className="container">
-          <article className="message">
-            <div className="message-header">
-              À propos
-            </div>
-            <div className="message-body">
-              <div className="block">
-              <p>Ce site a pour vocation de promouvoir le Fédiverse, une approche décentralisée des réseaux sociaux, dont le plus célèbre représentant est <a href="https://joinmastodon.org/fr">Mastodon</a>.</p>
-            <p>Vous trouverez ci-dessous des instances de cette application, destinées au public québécois. J&apos;ajouterai d&apos;autres informations au fil du temps.</p>
-            <p>Idées, commentaires, et questions bienvenus</p></div>
-            <p><strong>Me contacter</strong></p>
-            <ul className="list">
-              <li className="list-item"><a href="https://mastodonte.quebec/@yann" rel="me">Mon profil Mastodon</a></li>
-              <li className="list-item"><a href="https://form.jotform.com/230093323011236">Formulaire</a></li>
-            </ul>
-            </div>
-          </article>
-          </div>
-        </section>
       <section className="section">
-        <h1 className="title">Mastodon</h1>
+        <TitleWithIcon></TitleWithIcon>
         <div className="block">
           <strong>{instances.length} instances répertoriées</strong>
         </div>
@@ -41,11 +25,9 @@ export default function Home({instances}: any): JSX.Element {
               <div className="card">
                 <div className="card-content">
                   <div className="content">
-                    <h2 className="title is-4">{instance.title}</h2>
+                    <h2 className="title is-4" ><Link className=' has-text-black' href={'instances/' + instance.domain_name}>{instance.title}</Link></h2>
                     <h3 className="subtitle is-6">
-                      <a href={`https://${instance.domain_name}`}>
-                        {punycode.toUnicode(instance.domain_name)}
-                      </a>
+                      <DomainLink domain={instance.domain_name}></DomainLink>
                     </h3>
                     <p className="three-lines">{instance.short_description}</p>
                   </div>
@@ -79,8 +61,11 @@ export default function Home({instances}: any): JSX.Element {
                   </div>
                   <div className="card-footer-item">
                     <a href={`https://${instance.domain_name}`}>
-                      Visiter l&apos;instance
+                      Visiter
                     </a>
+                  </div>
+                  <div className="card-footer-item">
+                    <Link href={'instances/' + instance.domain_name}>Infos</Link>
                   </div>
                 </div>
               </div>
@@ -103,20 +88,10 @@ export default function Home({instances}: any): JSX.Element {
 }
 
 export async function getStaticProps() {
-  const client = new Client(process.env.DATABASE_URL);
+  const client = new Client();
 
-  await client.connect()
-  const query = `SELECT
-    title, domain_name, short_description, description, user_count, status_count, registrations, updated_at
-    FROM instances WHERE domain_name like '%quebec%' OR title LIKE '%Qu_b_c%' OR short_description LIKE '%Qu_b_c%' OR description LIKE '%Qu_bec%' OR title LIKE '%Montr_eal%' OR short_description LIKE '%Montr_eal%' OR description LIKE '%Montr_eal%'  ORDER BY user_count DESC;`
-  const result = await client.query(query);
-  const instances = result.rows.map(
-    (row) => {
-      return {
-        ...row, ...{updated_at: format(row.updated_at, `dd/MM/yyyy HH'h'mm`)}
-      }
-    }
-  );
+  const instances = await client.fetchAllInstances();
+
   return {
     props: { instances } as Props
   }
