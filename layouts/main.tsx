@@ -23,6 +23,13 @@ export default function Main({children}: Props): JSX.Element {
           <div className="subtitle has-text-white">{config.site.tag_line}</div>
         </div>
       </div>
+      <nav className="navbar" role="navigation" aria-label="main navigation">
+      <div className="navbar-brand navbar-end">
+        <div className="navbar-end">
+        <Link href='/' className="navbar-item">Accueil</Link>
+          <Link href='/a-propos' className="navbar-item">À propos</Link></div>
+      </div>
+      </nav>
       {children}
     </>
   );

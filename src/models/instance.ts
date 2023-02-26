@@ -6,6 +6,6 @@ export interface Instance {
   user_count: string;
   status_count: string;
   registrations: string;
-  updated_at: string;
+  updated_at?: string;
   created_at: string;
 }

@@ -17,7 +17,11 @@ export default class Client {
     const instances = result.rows.map((row) => {
       return {
         ...row,
-        ...{ updated_at: format(row.updated_at, `dd/MM/yyyy HH'h'mm`) },
+        ...{
+          updated_at: row.updated_at
+            ? format(row.updated_at, `dd/MM/yyyy HH'h'mm`)
+            : null,
+        },
       };
     });
 
@@ -32,7 +36,11 @@ export default class Client {
     const instance = result.rows[0];
     return {
       ...instance,
-      ...{ updated_at: format(instance.updated_at, `dd/MM/yyyy HH'h'mm`) },
+      ...{
+        updated_at: instance.updated_at
+          ? format(instance.updated_at, `dd/MM/yyyy HH'h'mm`)
+          : null,
+      },
       ...{ created_at: format(instance.created_at, `dd/MM/yyyy HH'h'mm`) },
     };
   }
