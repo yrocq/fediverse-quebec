@@ -52,13 +52,13 @@ export default function InstancePage({instance}:Props)  {
         </div>
         <div className="block">
           <div className="field">
-            <div className="label">Nombe d&apos;utilisateurs actifs</div>
+            <div className="label">Nombre d&apos;utilisateurs actifs</div>
             <div>{instance.user_count}</div>
           </div>
         </div>
         <div className="block">
           <div className="field">
-            <div className="label">Nombe de statuts</div>
+            <div className="label">Nombre de statuts</div>
             <div>{instance.status_count}</div>
           </div>
         </div>
