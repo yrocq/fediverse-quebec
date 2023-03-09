@@ -27,10 +27,18 @@ export default function Main({children}: Props): JSX.Element {
       <div className="navbar-brand navbar-end">
         <div className="navbar-end">
         <Link href='/' className="navbar-item">Accueil</Link>
+        <Link href='/instances' className="navbar-item">Instances</Link>
           <Link href='/a-propos' className="navbar-item">À propos</Link></div>
       </div>
       </nav>
       {children}
+      <footer className="footer">
+        <div className="content">
+          &copy; Yann Rocq. Sauf mention contraire, tous les textes de ce sites sont publiés sous licence <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr">Creative Commons BY-SA 4.0</a>.    
+        </div>
+      </footer>
+
+            
     </>
   );
 }

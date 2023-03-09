@@ -44,4 +44,45 @@ export default class Client {
       ...{ created_at: format(instance.created_at, `dd/MM/yyyy HH'h'mm`) },
     };
   }
+
+  public getStatistics(): Promise<any> {
+    return Promise.all([
+      this.getInstanceStatistics(),
+      this.getQuebecStatistics(),
+    ]).then((values) => {
+      return values.reduce((acc, value) => {
+        return {
+          ...acc,
+          ...value,
+        };
+      });
+    });
+  }
+
+  async getInstanceStatistics(): Promise<any> {
+    return this.database
+      .query(
+        `SELECT
+      COUNT(*) AS instances,
+      SUM(user_count) AS users,
+      SUM(status_count) AS statuses
+      FROM instances;`
+      )
+      .then((result) => {
+        return result.rows[0];
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  async getQuebecStatistics(): Promise<any> {
+    return this.database
+      .query(
+        `SELECT count(*) AS quebec_instances, SUM(user_count) AS quebec_users, SUM(status_count) AS quebec_statuses FROM instances INNER JOIN tags ON instances."domain_name" = tags.domain_name WHERE tags.tag = 'quebec';`
+      )
+      .then((result) => {
+        return result.rows[0];
+      });
+  }
 }
