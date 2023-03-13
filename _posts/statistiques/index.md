@@ -1,7 +1,7 @@
 ---
 title: "Ajouts du blog et des statistiques"
 path: "/blog-stats"
-date: "2023-03-09"
+date: "2023-03-13"
 author: "Yann"
 ---
 
