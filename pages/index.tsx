@@ -42,7 +42,7 @@ import Link from "next/link";
               <p><strong>{formatNumber(statistics.quebec_instances)}</strong> instances québécoises reconnues</p>              
               <p><strong>{formatNumber(statistics.quebec_users)}</strong> utilisateurs actifs</p>
               <p><strong>{formatNumber(statistics.quebec_statuses)}</strong> statuts publiés</p>
-              <p className="">Données mises à jour toutes les heures</p>
+              <p className="is-size-7 mt-1">Données mises à jour toutes les heures</p>
               <p className="mt-2"><Link href="/instances">Voir les instances</Link></p>
                 </div>
                 <div className="block">
@@ -50,7 +50,7 @@ import Link from "next/link";
               <p><strong>{formatNumber(statistics.instances)}</strong> instances parcourues</p>
               <p><strong>{formatNumber(statistics.users)}</strong> utilisateurs actifs</p>
               <p><strong>{formatNumber(statistics.statuses)}</strong> statuts publiés</p>
-              <p>Nombre d&apos;utilisateurs et de statuts au moment de la découverte des instances. Les données ne sont pas mises à jour pour le moment.</p>
+              <p className="is-size-7 mt-1">Nombre d&apos;utilisateurs et de statuts au moment de la découverte des instances. Les données ne sont pas mises à jour pour le moment.</p>
                 </div>
             </div>
                 </div>
