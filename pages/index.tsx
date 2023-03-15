@@ -39,9 +39,10 @@ import Link from "next/link";
               <h2 className="title">Statistiques</h2>
               <div className="block">
               <h3 className="subtitle">Québec</h3>
-              <p><strong>{formatNumber(statistics.quebec_instances)}</strong> instances québécoise reconnues</p>              
+              <p><strong>{formatNumber(statistics.quebec_instances)}</strong> instances québécoises reconnues</p>              
               <p><strong>{formatNumber(statistics.quebec_users)}</strong> utilisateurs actifs</p>
               <p><strong>{formatNumber(statistics.quebec_statuses)}</strong> statuts publiés</p>
+              <p className="">Données mises à jour toutes les heures</p>
               <p className="mt-2"><Link href="/instances">Voir les instances</Link></p>
                 </div>
                 <div className="block">
@@ -49,7 +50,7 @@ import Link from "next/link";
               <p><strong>{formatNumber(statistics.instances)}</strong> instances parcourues</p>
               <p><strong>{formatNumber(statistics.users)}</strong> utilisateurs actifs</p>
               <p><strong>{formatNumber(statistics.statuses)}</strong> statuts publiés</p>
-
+              <p>Nombre d&apos;utilisateurs et de statuts au moment de la découverte des instances. Les données ne sont pas mises à jour pour le moment.</p>
                 </div>
             </div>
                 </div>
