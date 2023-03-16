@@ -5,7 +5,7 @@ export default function About()  {
   return (
     <Main>
         <section className="section">
-        <div className="container">
+        <div className="container box">
           <h1 className="title">À propos</h1>
           <div className="block content">
             <p>Ce site a pour vocation de promouvoir le Fédiverse, une approche décentralisée des réseaux sociaux, dont le plus célèbre représentant est <a href="https://joinmastodon.org/fr">Mastodon</a>.</p>

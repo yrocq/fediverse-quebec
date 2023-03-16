@@ -23,7 +23,7 @@ export default function Main({children}: Props): JSX.Element {
           <div className="subtitle has-text-white">{config.site.tag_line}</div>
         </div>
       </div>
-      <nav className="navbar" role="navigation" aria-label="main navigation">
+      <nav className="navbar has-background-white-ter" role="navigation" aria-label="main navigation">
       <div className="navbar-brand navbar-end">
         <div className="navbar-end">
         <Link href='/' className="navbar-item">Accueil</Link>
@@ -31,7 +31,9 @@ export default function Main({children}: Props): JSX.Element {
           <Link href='/a-propos' className="navbar-item">À propos</Link></div>
       </div>
       </nav>
+      <div className="has-background-white-ter">
       {children}
+      </div>
       <footer className="footer">
         <div className="content">
           &copy; Yann Rocq. Sauf mention contraire, tous les textes de ce site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr">Creative Commons BY-SA 4.0</a>.    
