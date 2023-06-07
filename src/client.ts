@@ -11,8 +11,8 @@ export default class Client {
   public async fetchAllInstances(): Promise<Instance[]> {
     await this.database.connect();
     const query = `SELECT
-      title, domain_name, short_description, description, user_count, status_count, registrations, updated_at
-      FROM instances WHERE domain_name like '%quebec%' OR title LIKE '%Qu_b_c%' OR short_description LIKE '%Qu_b_c%' OR description LIKE '%Qu_bec%' OR title LIKE '%Montr_eal%' OR short_description LIKE '%Montr_eal%' OR description LIKE '%Montr_eal%'  ORDER BY user_count DESC;`;
+      title, instances.domain_name, short_description, description, user_count, status_count, registrations, updated_at
+      FROM instances INNER JOIN tags ON instances."domain_name" = tags.domain_name WHERE tags.tag = 'quebec';`;
     const result = await this.database.query(query);
     const instances = result.rows.map((row) => {
       return {
