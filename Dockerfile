@@ -1,6 +1,6 @@
 FROM node:18-alpine
 
-RUN apk install rsync
+RUN apk add rsync
 
 COPY . /home/node/app
 WORKDIR /home/node/app
