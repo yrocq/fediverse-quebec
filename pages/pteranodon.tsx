@@ -6,14 +6,11 @@ export default function About()  {
     <Main>
         <section className="section">
         <div className="container box">
-          <h1 className="title">À propos</h1>
+          <h1 className="title">Pteranodon</h1>
           <div className="block content">
-            <p>Ce site a pour vocation de promouvoir le Fédiverse, une approche décentralisée des réseaux sociaux, dont le plus célèbre représentant est <a href="https://joinmastodon.org/fr">Mastodon</a>.</p>
+            <p>Pteranodon est un indexeur web, destiné à fournir des informations pertinente sur le fediverse québécois.</p>
             <p>
-              Il propose une liste d&apos;<Link href="/instances">instances</Link> Mastodon s&apos;identifiant au Québec, avec des informations  mises à jour à chaque heure.
-            </p>
-            <p>
-              Il repose sur <Link href="/pteranodon">Pteranodon</Link>, un indexeur écrit en Rust.
+                
             </p>
             <p>
               D&apos;autres fonctionnalités sont en cours de développement.

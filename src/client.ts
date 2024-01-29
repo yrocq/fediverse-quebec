@@ -10,7 +10,7 @@ export default class Client {
   }
   public async fetchAllInstances(): Promise<Instance[]> {
     await this.database.connect();
-    const query = `SELECT
+    const query = `SELECT 
       title, instances.domain_name, short_description, description, user_count, status_count, registrations, updated_at
       FROM instances INNER JOIN tags ON instances."domain_name" = tags.domain_name WHERE tags.tag = 'quebec';`;
     const result = await this.database.query(query);
